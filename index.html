@@ -114,8 +114,18 @@
     }
 
     .category {
-      font-weight: bold;
-    }
+    font-weight: bold;
+    cursor: pointer;
+    border: none;
+    font: inherit;
+    transition: 0.2s;
+}
+
+.category:hover,
+.category.active {
+    background: #103c35;
+    color: white;
+}
 
     .product .symbol {
       font-size: 38px;
@@ -198,7 +208,7 @@
 
     <div class="products" id="products">
 
-      <article class="product">
+      <article class="product" data-category="electronique">
         <div class="symbol">📱</div>
         <h3>Smartphone</h3>
         <p>Exemple de produit</p>
@@ -208,7 +218,7 @@
         </button>
       </article>
 
-      <article class="product">
+      <article class="product" data-category="mode">
         <div class="symbol">👟</div>
         <h3>Chaussures</h3>
         <p>Exemple de produit</p>
@@ -218,7 +228,7 @@
         </button>
       </article>
 
-      <article class="product">
+      <article class="product" data-category="informatique">
         <div class="symbol">💻</div>
         <h3>Ordinateur</h3>
         <p>Exemple de produit</p>
