@@ -189,7 +189,33 @@
   </section>
 
   <main>
-    
+  <section class="publish">
+  <h2>Publier une annonce</h2>
+
+  <form id="publishForm">
+    <input type="text" id="productName"
+      placeholder="Nom du produit" required>
+
+    <textarea id="productDescription"
+      placeholder="Description du produit" required></textarea>
+
+    <input type="number" id="productPrice"
+      placeholder="Prix en FCFA" min="1" required>
+
+    <select id="productCategory" required>
+      <option value="">Choisir une catégorie</option>
+      <option value="mode">Mode</option>
+      <option value="maison">Maison</option>
+      <option value="automobile">Automobile</option>
+      <option value="alimentation">Alimentation</option>
+      <option value="informatique">Informatique</option>
+    </select>
+
+    <button type="submit">Publier mon annonce</button>
+  </form>
+
+  <p id="publishMessage"></p>
+  </section>  
 <h2>Nos catégories</h2>
 
 <div class="categories">
