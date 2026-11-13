@@ -434,6 +434,88 @@ function filterCategory(category) {
 
 document.getElementById("search").addEventListener("input", applyFilters);
   
+// Charger les annonces enregistrées
+function loadSavedProducts() {
+  const savedProducts = JSON.parse(
+    localStorage.getItem("komeriaProducts") || "[]"
+  );
+
+  savedProducts.forEach(addProductCard);
+}
+
+// Ajouter une annonce
+function addProductCard(item) {
+  const article = document.createElement("article");
+  article.className = "product";
+  article.dataset.category = item.category;
+
+  const symbol = document.createElement("div");
+  symbol.className = "symbol";
+  symbol.textContent = "🛍️";
+
+  const title = document.createElement("h3");
+  title.textContent = item.name;
+
+  const description = document.createElement("p");
+  description.textContent = item.description;
+
+  const price = document.createElement("div");
+  price.className = "price";
+  price.textContent =
+    Number(item.price).toLocaleString("fr-FR") + " FCFA";
+
+  const button = document.createElement("button");
+  button.textContent = "Voir le produit";
+
+  button.addEventListener("click", function() {
+    alert(
+      item.name + "\n" +
+      item.description + "\n" +
+      price.textContent
+    );
+  });
+
+  article.append(symbol, title, description, price, button);
+
+  document.getElementById("products").appendChild(article);
+}
+
+// Publier une annonce
+document.getElementById("publishForm")
+.addEventListener("submit", function(event) {
+  event.preventDefault();
+
+  const item = {
+    name: document.getElementById("productName").value.trim(),
+    description: document.getElementById("productDescription").value.trim(),
+    price: document.getElementById("productPrice").value,
+    category: document.getElementById("productCategory").value
+  };
+
+  const savedProducts = JSON.parse(
+    localStorage.getItem("komeriaProducts") || "[]"
+  );
+
+  savedProducts.push(item);
+
+  localStorage.setItem(
+    "komeriaProducts",
+    JSON.stringify(savedProducts)
+  );
+
+  addProductCard(item);
+
+  document.getElementById("publishMessage").textContent =
+    "Votre annonce a été publiée avec succès !";
+
+  document.getElementById("publishForm").reset();
+
+  applyFilters();
+});
+
+// Charger les annonces au démarrage
+loadSavedProducts();
+    
 </script>
   
 </body>
