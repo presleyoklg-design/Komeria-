@@ -579,42 +579,15 @@ document.getElementById("publishForm").addEventListener(
 );
 
 loadSavedProducts();
-  
-    let savedProducts = [];
-
-    try {
-      savedProducts = JSON.parse(
-        localStorage.getItem("komeriaProducts") || "[]"
-      );
-
-      if (!Array.isArray(savedProducts)) savedProducts = [];
-    } catch (error) {
-      savedProducts = [];
-    }
-
-    savedProducts.push(item);
-
-    try {
-      localStorage.setItem(
-        "komeriaProducts",
-        JSON.stringify(savedProducts)
-      );
-    } catch (error) {
-      document.getElementById("publishMessage").textContent =
-        "Enregistrement impossible sur cet appareil.";
-      return;
-    }
-
-    addProductCard(item);
-
-    document.getElementById("publishMessage").textContent =
-      "Votre annonce a été publiée sur cet appareil.";
-
-    document.getElementById("publishForm").reset();
-    applyFilters();
+    reader.readAsDataURL(imageFile);
   }
 );
 
+loadSavedProducts();
+
+</script>
+</body>
+</html>
 loadSavedProducts();
     
 </script>
