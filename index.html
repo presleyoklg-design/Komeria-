@@ -515,7 +515,127 @@ document.getElementById("publishForm")
 
 // Charger les annonces au démarrage
 loadSavedProducts();
-    
+    // Ajouter une annonce sur la page
+function addProductCard(item) {
+  const article = document.createElement("article");
+  article.className = "product";
+  article.dataset.category = item.category;
+
+  const symbol = document.createElement("div");
+  symbol.className = "symbol";
+  symbol.textContent = "🛍️";
+
+  const title = document.createElement("h3");
+  title.textContent = item.name;
+
+  const description = document.createElement("p");
+  description.textContent = item.description;
+
+  const price = document.createElement("div");
+  price.className = "price";
+  price.textContent =
+    Number(item.price).toLocaleString("fr-FR") + " FCFA";
+
+  const button = document.createElement("button");
+  button.type = "button";
+  button.textContent = "Voir le produit";
+
+  button.addEventListener("click", function() {
+    alert(
+      item.name + "\n" +
+      item.description + "\n" +
+      price.textContent
+    );
+  });
+
+  article.append(symbol, title, description, price, button);
+  document.getElementById("products").appendChild(article);
+}
+
+// Charger les annonces déjà enregistrées
+function loadSavedProducts() {
+  let savedProducts = [];
+
+  try {
+    savedProducts = JSON.parse(
+      localStorage.getItem("komeriaProducts") || "[]"
+    );
+
+    if (!Array.isArray(savedProducts)) {
+      savedProducts = [];
+    }
+  } catch (error) {
+    savedProducts = [];
+  }
+
+  savedProducts.forEach(addProductCard);
+}
+
+// Publier une nouvelle annonce
+document.getElementById("publishForm").addEventListener(
+  "submit",
+  function(event) {
+    event.preventDefault();
+
+    const item = {
+      name: document.getElementById("productName").value.trim(),
+      description: document.getElementById("productDescription").value.trim(),
+      price: Number(document.getElementById("productPrice").value),
+      category: document.getElementById("productCategory").value
+    };
+
+    if (
+      !item.name ||
+      !item.description ||
+      !Number.isFinite(item.price) ||
+      item.price <= 0 ||
+      !item.category
+    ) {
+      document.getElementById("publishMessage").textContent =
+        "Veuillez remplir correctement tous les champs.";
+      return;
+    }
+
+    let savedProducts = [];
+
+    try {
+      savedProducts = JSON.parse(
+        localStorage.getItem("komeriaProducts") || "[]"
+      );
+
+      if (!Array.isArray(savedProducts)) {
+        savedProducts = [];
+      }
+    } catch (error) {
+      savedProducts = [];
+    }
+
+    savedProducts.push(item);
+
+    try {
+      localStorage.setItem(
+        "komeriaProducts",
+        JSON.stringify(savedProducts)
+      );
+    } catch (error) {
+      document.getElementById("publishMessage").textContent =
+        "Enregistrement impossible sur cet appareil.";
+      return;
+    }
+
+    addProductCard(item);
+
+    document.getElementById("publishMessage").textContent =
+      "Votre annonce a été publiée sur cet appareil.";
+
+    document.getElementById("publishForm").reset();
+
+    applyFilters();
+  }
+);
+
+// Afficher les annonces enregistrées
+loadSavedProducts();
 </script>
   
 </body>
