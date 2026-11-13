@@ -1,2 +1,2 @@
-# Komeria-
+# POM-
 Marketplace panafricaine généraliste
