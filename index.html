@@ -208,7 +208,7 @@
 
     <div class="products" id="products">
 
-      <article class="product" data-category="electronique">
+      <article class="product" data-category="informatique">
         <div class="symbol">📱</div>
         <h3>Smartphone</h3>
         <p>Exemple de produit</p>
@@ -268,7 +268,23 @@
       document.getElementById("empty").style.display =
         found === 0 ? "block" : "none";
     }
-  </script>
+ 
+function filterCategory(category) {
+    const products = document.querySelectorAll(".product");
+    let found = 0;
+
+    products.forEach(product => {
+        const match = product.dataset.category === category;
+
+        product.style.display = match ? "block" : "none";
+
+        if (match) found++;
+    });
+
+    document.getElementById("empty").style.display =
+        found === 0 ? "block" : "none";
+    }
+        </script>
 
 </body>
   </html>
