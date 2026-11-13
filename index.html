@@ -270,44 +270,64 @@
   </footer>
 
   <script>
-    function searchProducts() {
-      const query = document
-        .getElementById("search")
-        .value.toLowerCase().trim();
+let currentCategory = "toutes";
 
-      const products = document.querySelectorAll(".product");
-      let found = 0;
+function applyFilters() {
+  const query = document
+    .getElementById("search")
+    .value.toLowerCase().trim();
 
-      products.forEach(product => {
-        const match = product.textContent
-          .toLowerCase().includes(query);
+  const products = document.querySelectorAll(".product");
+  let found = 0;
 
-        product.style.display = match ? "block" : "none";
+  products.forEach(product => {
+    const matchesCategory =
+      currentCategory === "toutes" ||
+      product.dataset.category === currentCategory;
 
-        if (match) found++;
-      });
+    const matchesSearch =
+      product.textContent.toLowerCase().includes(query);
 
-      document.getElementById("empty").style.display =
-        found === 0 ? "block" : "none";
-    }
- 
+    const visible = matchesCategory && matchesSearch;
+
+    product.style.display = visible ? "block" : "none";
+
+    if (visible) found++;
+  });
+
+  document.getElementById("empty").style.display =
+    found === 0 ? "block" : "none";
+}
+
+function searchProducts() {
+  applyFilters();
+}
+
 function filterCategory(category) {
-    const products = document.querySelectorAll(".product");
-    let found = 0;
+  currentCategory = category;
 
-    products.forEach(product => {
-        const match = product.dataset.category === category;
+  document.querySelectorAll(".category").forEach(button => {
+    button.classList.remove("active");
+  });
 
-        product.style.display = match ? "block" : "none";
+  const selectedButton = Array.from(
+    document.querySelectorAll(".category")
+  ).find(button =>
+    button.getAttribute("onclick") ===
+    `filterCategory('${category}')`
+  );
 
-        if (match) found++;
-    });
+  if (selectedButton) {
+    selectedButton.classList.add("active");
+  }
 
-    document.getElementById("empty").style.display =
-        found === 0 ? "block" : "none";
-    }
-        </script>
+  applyFilters();
+}
 
+document.getElementById("search").addEventListener("input", applyFilters);
+  
+</script>
+  
 </body>
   </html>
   
