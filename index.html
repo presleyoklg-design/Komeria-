@@ -496,10 +496,25 @@ function loadSavedProducts() {
   savedProducts.forEach(addProductCard);
 }
 
+
 document.getElementById("publishForm").addEventListener(
   "submit",
   function(event) {
     event.preventDefault();
+
+    const imageFile = document.getElementById("productImage").files[0];
+
+    if (!imageFile || !imageFile.type.startsWith("image/")) {
+      document.getElementById("publishMessage").textContent =
+        "Veuillez choisir une photo valide.";
+      return;
+    }
+
+    if (imageFile.size > 500 * 1024) {
+      document.getElementById("publishMessage").textContent =
+        "La photo doit faire moins de 500 Ko.";
+      return;
+    }
 
     const item = {
       name: document.getElementById("productName").value.trim(),
@@ -520,6 +535,51 @@ document.getElementById("publishForm").addEventListener(
       return;
     }
 
+    const reader = new FileReader();
+
+    reader.onload = function() {
+      item.imageData = reader.result;
+
+      let savedProducts = [];
+
+      try {
+        savedProducts = JSON.parse(
+          localStorage.getItem("komeriaProducts") || "[]"
+        );
+
+        if (!Array.isArray(savedProducts)) savedProducts = [];
+        savedProducts.push(item);
+
+        localStorage.setItem(
+          "komeriaProducts",
+          JSON.stringify(savedProducts)
+        );
+      } catch (error) {
+        document.getElementById("publishMessage").textContent =
+          "Stockage insuffisant. Essayez une photo plus petite.";
+        return;
+      }
+
+      addProductCard(item);
+
+      document.getElementById("publishMessage").textContent =
+        "Votre annonce avec photo a été publiée sur cet appareil.";
+
+      document.getElementById("publishForm").reset();
+      applyFilters();
+    };
+
+    reader.onerror = function() {
+      document.getElementById("publishMessage").textContent =
+        "Impossible de lire cette photo.";
+    };
+
+    reader.readAsDataURL(imageFile);
+  }
+);
+
+loadSavedProducts();
+  
     let savedProducts = [];
 
     try {
