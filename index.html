@@ -1,250 +1,435 @@
-
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="KOMERIA, votre marketplace panafricaine.">
-  <title>KOMERIA - Le commerce sans frontières</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="KOMERIA, votre écosystème numérique africain.">
+<title>KOMERIA - Ensemble, connectons les opportunités</title>
 
-  <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-
-    body {
-      font-family: Arial, sans-serif;
-      background: #f7f8fa;
-      color: #20252d;
-    }
-
-    header {
-      background: #103c35;
-      color: white;
-      padding: 20px;
-    }
-
-    .topbar {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 12px;
-    }
-
-    .logo {
-      font-size: 27px;
-      font-weight: bold;
-      letter-spacing: 1px;
-    }
-
-    .logo span {
-      color: #f5b942;
-    }
-
-    .hero {
-      text-align: center;
-      padding: 55px 15px;
-      background: #155447;
-      color: white;
-    }
-
-    .hero h1 {
-      font-size: 32px;
-      margin-bottom: 15px;
-    }
-
-    .hero p {
-      margin-bottom: 25px;
-      line-height: 1.6;
-    }
-
-    .search {
-      display: flex;
-      max-width: 500px;
-      margin: auto;
-      gap: 8px;
-    }
-
-    .search input {
-      flex: 1;
-      min-width: 0;
-      padding: 14px;
-      border: none;
-      border-radius: 6px;
-    }
-
-    button {
-      cursor: pointer;
-      border: none;
-      border-radius: 6px;
-      padding: 13px 18px;
-      background: #f5b942;
-      color: #20252d;
-      font-weight: bold;
-    }
-
-    main {
-      max-width: 1100px;
-      margin: auto;
-      padding: 30px 15px;
-    }
-
-    h2 {
-      margin-bottom: 20px;
-    }
-
-    .categories, .products {
-      display: grid;
-      grid-template-columns: repeat(
-        auto-fit, minmax(145px, 1fr)
-      );
-      gap: 15px;
-      margin-bottom: 40px;
-    }
-
-    .category, .product {
-      background: white;
-      padding: 20px;
-      border-radius: 10px;
-      text-align: center;
-      box-shadow: 0 2px 8px #0000000d;
-    }
-
-    .category {
-    font-weight: bold;
-    font-family: inherit;
-    cursor: pointer;
-    border: none;
-    transition: 0.2s;
-    }
-
-.category:hover,
-.category.active {
-    background: #103c35;
-    color: white;
+<style>
+:root {
+  --green: #126b55;
+  --green-dark: #0b493b;
+  --blue: #2463a8;
+  --yellow: #f4bd45;
+  --bg: #f0f2f5;
+  --white: #ffffff;
+  --text: #20252d;
+  --muted: #737b85;
+  --border: #e5e8ec;
 }
 
-    .product .symbol {
-      font-size: 38px;
-      margin-bottom: 12px;
-    }
-
-    .product h3 {
-      font-size: 16px;
-      margin-bottom: 8px;
-    }
-
-    .price {
-      color: #155447;
-      font-weight: bold;
-      margin: 10px 0;
-    }
-
-    .product button {
-      width: 100%;
-    }
-
-    .empty {
-      display: none;
-      margin-bottom: 30px;
-    }
-.publish {
-  background: white;
-  padding: 20px;
-  border-radius: 10px;
-  margin-bottom: 35px;
-  box-shadow: 0 2px 8px #0000000d;
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
-.publish input,
-.publish textarea,
-.publish select {
+body {
+  font-family: Arial, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  padding-bottom: 76px;
+}
+
+button, input, textarea, select {
+  font: inherit;
+}
+
+button {
+  cursor: pointer;
+  border: none;
+}
+
+.topbar {
+  background: var(--white);
+  padding: 13px 15px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  box-shadow: 0 1px 5px #00000012;
+}
+
+.logo {
+  font-size: 26px;
+  font-weight: 900;
+  color: var(--green);
+  letter-spacing: -1px;
+}
+
+.logo span {
+  color: var(--yellow);
+}
+
+.top-actions {
+  display: flex;
+  gap: 10px;
+}
+
+.round-btn {
+  width: 39px;
+  height: 39px;
+  border-radius: 50%;
+  background: var(--bg);
+  font-size: 19px;
+}
+
+.search-area {
+  background: var(--white);
+  padding: 10px 15px 13px;
+}
+
+.search-box {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--bg);
+  border-radius: 25px;
+  padding: 0 14px;
+}
+
+.search-box input {
+  width: 100%;
+  border: none;
+  outline: none;
+  background: transparent;
+  padding: 12px 0;
+}
+
+main {
+  max-width: 680px;
+  margin: 0 auto;
+  padding: 12px 10px;
+}
+
+.page {
+  display: none;
+}
+
+.page.active {
   display: block;
+}
+
+.section-title {
+  font-size: 19px;
+  margin: 13px 4px;
+}
+
+.card {
+  background: var(--white);
+  border-radius: 12px;
+  margin-bottom: 12px;
+  overflow: hidden;
+  box-shadow: 0 1px 3px #0000000b;
+}
+
+.stories {
+  display: flex;
+  gap: 12px;
+  overflow-x: auto;
+  padding: 14px;
+}
+
+.story {
+  min-width: 65px;
+  text-align: center;
+  font-size: 12px;
+  color: var(--muted);
+}
+
+.story-circle {
+  width: 58px;
+  height: 58px;
+  margin: 0 auto 6px;
+  border-radius: 50%;
+  border: 3px solid var(--green);
+  display: grid;
+  place-items: center;
+  font-size: 25px;
+  background: #e9f4ef;
+}
+
+.create-post {
+  padding: 13px;
+}
+
+.create-top {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.avatar {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: #e0eee8;
+  color: var(--green);
+  font-weight: bold;
+  flex-shrink: 0;
+}
+
+.fake-input {
+  flex: 1;
+  background: var(--bg);
+  border-radius: 25px;
+  padding: 12px 15px;
+  text-align: left;
+  color: var(--muted);
+}
+
+.create-options {
+  display: flex;
+  justify-content: space-around;
+  border-top: 1px solid var(--border);
+  margin-top: 13px;
+  padding-top: 12px;
+  color: var(--muted);
+  font-size: 13px;
+}
+
+.create-options button {
+  background: none;
+  color: inherit;
+}
+
+.post {
+  padding: 14px;
+}
+
+.post-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.post-author {
+  flex: 1;
+}
+
+.post-author strong {
+  display: block;
+  font-size: 14px;
+}
+
+.post-author small {
+  display: block;
+  color: var(--muted);
+  margin-top: 4px;
+}
+
+.post-text {
+  line-height: 1.5;
+  margin: 13px 0;
+  font-size: 14px;
+}
+
+.post-image {
+  width: 100%;
+  display: block;
+  max-height: 390px;
+  object-fit: cover;
+  background: #edf1ef;
+}
+
+.video-placeholder {
+  min-height: 210px;
+  background: linear-gradient(135deg, #164d40, #267e64);
+  display: grid;
+  place-items: center;
+  color: white;
+  text-align: center;
+  font-size: 18px;
+  padding: 25px;
+}
+
+.video-placeholder span {
+  font-size: 45px;
+  display: block;
+  margin-bottom: 10px;
+}
+
+.post-stats {
+  color: var(--muted);
+  font-size: 12px;
+  padding: 10px 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.post-actions {
+  display: flex;
+  justify-content: space-around;
+  padding-top: 10px;
+  gap: 5px;
+}
+
+.post-actions button {
+  background: none;
+  color: var(--muted);
+  padding: 8px 4px;
+  font-weight: bold;
+  font-size: 13px;
+}
+
+.post-actions button.liked {
+  color: var(--blue);
+}
+
+.categories {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.category {
+  background: var(--white);
+  padding: 16px 10px;
+  border-radius: 12px;
+  text-align: left;
+  font-weight: bold;
+  border: 1px solid var(--border);
+  color: var(--text);
+}
+
+.category.active {
+  border: 2px solid var(--green);
+  color: var(--green);
+  background: #edf7f2;
+}
+
+.category span {
+  display: block;
+  font-size: 25px;
+  margin-bottom: 8px;
+}
+
+.product-card {
+  background: white;
+  border-radius: 12px;
+  overflow: hidden;
+  margin-bottom: 12px;
+}
+
+.product-card img {
+  width: 100%;
+  height: 210px;
+  object-fit: cover;
+  display: block;
+  background: #f1f3f4;
+}
+
+.product-info {
+  padding: 13px;
+}
+
+.product-info h3 {
+  font-size: 16px;
+  margin-bottom: 6px;
+}
+
+.product-info p {
+  font-size: 13px;
+  color: var(--muted);
+  line-height: 1.4;
+}
+
+.product-price {
+  color: var(--green);
+  font-weight: bold;
+  margin: 10px 0;
+}
+
+.primary-btn {
+  background: var(--green);
+  color: white;
+  border-radius: 8px;
+  padding: 12px;
+  font-weight: bold;
+  width: 100%;
+}
+
+.form-card {
+  background: white;
+  padding: 16px;
+  border-radius: 12px;
+}
+
+.form-card h2 {
+  font-size: 20px;
+  margin-bottom: 15px;
+}
+
+.form-card input,
+.form-card textarea,
+.form-card select {
   width: 100%;
   padding: 13px;
   margin-bottom: 12px;
-  border: 1px solid #ddd;
-  border-radius: 6px;
-  font-family: inherit;
-}
-
-.publish textarea {
-  min-height: 90px;
-}
-
-.publish button {
-  width: 100%;
-}
-
-#publishMessage {
-  margin-top: 12px;
-  color: #155447;
-        }
-    
-.messaging {
+  border: 1px solid var(--border);
+  border-radius: 8px;
   background: white;
-  padding: 20px;
-  border-radius: 10px;
-  margin-bottom: 35px;
-  box-shadow: 0 2px 8px #0000000d;
 }
 
-.messaging-intro {
-  margin-bottom: 18px;
-  color: #606873;
+.form-card textarea {
+  min-height: 95px;
+  resize: vertical;
 }
 
-.chat-box {
-  border: 1px solid #e0e5e8;
-  border-radius: 10px;
+.form-message {
+  color: var(--green);
+  font-size: 13px;
+  margin-top: 12px;
+}
+
+.chat-card {
+  background: white;
+  border-radius: 12px;
   overflow: hidden;
 }
 
-.chat-header {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  background: #103c35;
-  color: white;
+.chat-head {
   padding: 15px;
+  background: var(--green-dark);
+  color: white;
 }
 
-.chat-header span {
-  font-size: 28px;
-}
-
-.chat-header p {
-  font-size: 13px;
+.chat-head small {
+  display: block;
   margin-top: 5px;
+  opacity: .8;
 }
 
 .chat-messages {
-  min-height: 180px;
-  max-height: 300px;
+  min-height: 300px;
+  max-height: 430px;
   overflow-y: auto;
   padding: 15px;
-  background: #f7f8fa;
+  background: #f5f7f6;
 }
 
 .chat-welcome {
-  color: #68717b;
   text-align: center;
-  margin-top: 50px;
+  color: var(--muted);
+  margin-top: 100px;
+  font-size: 14px;
 }
 
 .message-bubble {
   background: #d9f3e8;
-  color: #20252d;
-  padding: 12px;
-  margin: 10px 0;
-  border-radius: 10px;
+  padding: 11px 13px;
+  border-radius: 14px 14px 3px 14px;
+  margin: 10px 0 10px auto;
   max-width: 85%;
   overflow-wrap: anywhere;
-        }
-    
+  width: fit-content;
+  font-size: 14px;
+}
+
 .chat-form {
   display: flex;
   gap: 8px;
@@ -254,515 +439,417 @@
 .chat-form input {
   flex: 1;
   min-width: 0;
+  border: 1px solid var(--border);
+  border-radius: 22px;
   padding: 12px;
-  border: 1px solid #ddd;
-  border-radius: 6px;
 }
 
 .chat-form button {
-  background: #103c35;
+  background: var(--green);
   color: white;
-    }
-    
-    footer {
-      background: #103c35;
-      color: white;
-      text-align: center;
-      padding: 25px;
-      line-height: 1.8;
-    }
-    
-/* AMELIORATION DU DESIGN KOMERIA */
-
-/* Grille des produits et catégories */
-.categories,
-.products {
-  width: 100%;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 12px;
-  align-items: stretch;
+  border-radius: 22px;
+  padding: 0 16px;
 }
 
-/* Cartes des produits */
-.product {
-  min-width: 0;
-  padding: 15px 10px;
+.profile-card {
+  background: white;
+  padding: 25px 15px;
   border-radius: 12px;
-  box-shadow: 0 3px 12px rgba(0, 0, 0, 0.07);
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
+  text-align: center;
 }
 
-/* Images et symboles */
-.product img {
-  max-width: 100%;
-  object-fit: contain;
-}
-
-.product .symbol {
-  font-size: 42px;
-}
-
-/* Titres et descriptions */
-.product h3 {
-  font-size: 15px;
-  line-height: 1.4;
-  overflow-wrap: anywhere;
-}
-
-.product p {
-  font-size: 14px;
-  line-height: 1.5;
-  overflow-wrap: anywhere;
-}
-
-/* Prix */
-.product .price {
-  font-size: 15px;
-  line-height: 1.4;
-}
-
-/* Boutons */
-.product button {
-  width: 100%;
-  min-height: 44px;
-  padding: 10px 6px;
-  font-size: 13px;
-  line-height: 1.3;
-  white-space: normal;
-  overflow-wrap: anywhere;
-  border-radius: 8px;
-}
-
-/* Affichage sur ordinateur */
-@media (min-width: 700px) {
-  .categories,
-  .products {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 20px;
-  }
-
-  .product {
-    padding: 20px;
-  }
-
-  .product h3 {
-    font-size: 17px;
-  }
-
-  .product button {
-    font-size: 15px;
-  }
-  }
-   
-/* CORRECTION DE LA GRILLE DES PRODUITS */
-
-main {
-  width: 100%;
-  max-width: 1100px;
-  min-width: 0;
-}
-
-.products {
+.profile-avatar {
+  width: 85px;
+  height: 85px;
+  margin: 0 auto 12px;
+  border-radius: 50%;
+  background: #e0eee8;
   display: grid;
-  width: 100%;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 14px;
-  align-items: stretch;
+  place-items: center;
+  font-size: 38px;
 }
 
-.products .product {
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  min-width: 0;
-  max-width: 100%;
+.profile-card p {
+  color: var(--muted);
+  margin-top: 7px;
+  font-size: 14px;
+}
+
+.profile-menu {
+  margin-top: 12px;
+  background: white;
+  border-radius: 12px;
   overflow: hidden;
 }
 
-.products .product h3,
-.products .product p,
-.products .product .price {
-  width: 100%;
-  min-width: 0;
-  overflow-wrap: break-word;
-  word-break: normal;
+.profile-menu div {
+  padding: 16px;
+  border-bottom: 1px solid var(--border);
 }
 
-.products .product button {
-  width: 100%;
-  min-width: 0;
-  white-space: normal;
-  overflow-wrap: break-word;
+.bottom-nav {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 30;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  background: white;
+  border-top: 1px solid var(--border);
+  padding: 8px 3px calc(8px + env(safe-area-inset-bottom));
 }
 
-@media (max-width: 360px) {
-  .products {
-    grid-template-columns: 1fr;
+.nav-btn {
+  flex: 1;
+  background: none;
+  color: #818994;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  font-size: 11px;
+}
+
+.nav-btn .nav-icon {
+  font-size: 22px;
+}
+
+.nav-btn.active {
+  color: var(--green);
+  font-weight: bold;
+}
+
+.empty {
+  display: none;
+  padding: 25px;
+  text-align: center;
+  color: var(--muted);
+  background: white;
+  border-radius: 12px;
+}
+
+@media (min-width: 700px) {
+  main {
+    padding-top: 20px;
+  }
+
+  .categories {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .topbar, .search-area {
+    padding-left: max(15px, calc((100% - 680px) / 2));
+    padding-right: max(15px, calc((100% - 680px) / 2));
   }
 }
-    
-  </style>
+</style>
 </head>
 
 <body>
 
-  <header>
-    <div class="topbar">
-      <div class="logo">KOMER<span>IA</span></div>
-      <div>Le commerce sans frontières</div>
-    </div>
-  </header>
+<header class="topbar">
+  <div class="logo">KOMER<span>IA</span></div>
+  <div class="top-actions">
+    <button class="round-btn" onclick="showPage('explore')">⌕</button>
+    <button class="round-btn" onclick="showPage('messages')">✉</button>
+    <button class="round-btn" onclick="showPage('profile')">●</button>
+  </div>
+</header>
 
-  <section class="hero">
-    <h1>Bienvenue sur KOMERIA</h1>
-    <p>
-      Découvrez, achetez et vendez des produits
-      à travers l'Afrique.
+<div class="search-area">
+  <div class="search-box">
+    <span>⌕</span>
+    <input type="search" id="search" placeholder="Rechercher sur KOMERIA...">
+  </div>
+</div>
+
+<main>
+
+<!-- ACCUEIL -->
+<section class="page active" id="home">
+
+  <div class="card stories">
+    <div class="story">
+      <div class="story-circle">＋</div>
+      Votre story
+    </div>
+    <div class="story">
+      <div class="story-circle">👗</div>
+      Mode
+    </div>
+    <div class="story">
+      <div class="story-circle">🏠</div>
+      Maison
+    </div>
+    <div class="story">
+      <div class="story-circle">📱</div>
+      Tech
+    </div>
+    <div class="story">
+      <div class="story-circle">🍲</div>
+      Cuisine
+    </div>
+    <div class="story">
+      <div class="story-circle">🚗</div>
+      Auto
+    </div>
+  </div>
+
+  <div class="card create-post">
+    <div class="create-top">
+      <div class="avatar">K</div>
+      <button class="fake-input" onclick="showPage('publish')">
+        Quoi de neuf sur KOMERIA ?
+      </button>
+    </div>
+    <div class="create-options">
+      <button onclick="showPage('publish')">▣ Photo</button>
+      <button onclick="showPage('publish')">▶ Vidéo</button>
+      <button onclick="showPage('publish')">＋ Annonce</button>
+    </div>
+  </div>
+
+  <h2 class="section-title">Fil d'actualité</h2>
+
+  <article class="card post">
+    <div class="post-header">
+      <div class="avatar">K</div>
+      <div class="post-author">
+        <strong>KOMERIA Communauté</strong>
+        <small>Bienvenue · Publication officielle</small>
+      </div>
+      <span>•••</span>
+    </div>
+    <p class="post-text">
+      Bienvenue sur KOMERIA ! Découvrez des produits,
+      partagez vos opportunités et connectez-vous avec
+      des acheteurs et vendeurs à travers l'Afrique.
     </p>
-
-    <div class="search">
-      <input
-        type="search"
-        id="search"
-        placeholder="Que recherchez-vous ?"
-      >
-      <button onclick="searchProducts()">Chercher</button>
+    <div class="video-placeholder">
+      <div><span>▶</span>Découvrez les opportunités sur KOMERIA</div>
     </div>
-  </section>
+    <div class="post-stats">Bienvenue dans notre communauté !</div>
+    <div class="post-actions">
+      <button onclick="toggleLike(this)">♡ J'aime</button>
+      <button onclick="showPage('messages')">◯ Commenter</button>
+      <button onclick="sharePost()">↗ Partager</button>
+    </div>
+  </article>
 
-  <main>
-  <section class="publish">
-  <h2>Publier une annonce</h2>
+  <div id="feedProducts"></div>
+  <p class="empty" id="homeEmpty">Aucune annonce ne correspond à votre recherche.</p>
 
-  <form id="publishForm">
-    <input type="text" id="productName"
-      placeholder="Nom du produit" required>
+</section>
 
-    <textarea id="productDescription"
-      placeholder="Description du produit" required></textarea>
-<input
-  type="file"
-  id="productImage"
-  accept="image/*"
-  required
->
-    <input type="number" id="productPrice"
-      placeholder="Prix en FCFA" min="1" required>
-
-    <select id="productCategory" required>
-      <option value="">Choisir une catégorie</option>
-      <option value="mode">Mode</option>
-      <option value="maison">Maison</option>
-      <option value="automobile">Automobile</option>
-      <option value="alimentation">Alimentation</option>
-      <option value="informatique">Informatique</option>
-    </select>
-
-    <button type="submit">Publier mon annonce</button>
-  </form>
-
-  <p id="publishMessage"></p>
-  </section>  
-    
-<section class="messaging">
-  <h2>Messagerie KOMERIA</h2>
-  <p class="messaging-intro">
-    Échangez directement avec les acheteurs et les vendeurs.
+<!-- EXPLORER -->
+<section class="page" id="explore">
+  <h2 class="section-title">Explorer KOMERIA</h2>
+  <p style="margin:0 4px 15px;color:#737b85;font-size:14px">
+    Découvrez les produits et les opportunités.
   </p>
 
-  <div class="chat-box">
-    <div class="chat-header">
-      <span>💬</span>
-      <div>
-        <h3>Conversation</h3>
-        <p>Messagerie acheteur-vendeur</p>
-      </div>
+  <div class="categories">
+    <button class="category active" onclick="filterCategory('toutes',this)">
+      <span>🌍</span>Toutes les catégories
+    </button>
+    <button class="category" onclick="filterCategory('mode',this)">
+      <span>👕</span>Mode
+    </button>
+    <button class="category" onclick="filterCategory('maison',this)">
+      <span>🏠</span>Maison
+    </button>
+    <button class="category" onclick="filterCategory('automobile',this)">
+      <span>🚗</span>Automobile
+    </button>
+    <button class="category" onclick="filterCategory('alimentation',this)">
+      <span>🥑</span>Alimentation
+    </button>
+    <button class="category" onclick="filterCategory('informatique',this)">
+      <span>💻</span>Informatique
+    </button>
+  </div>
+
+  <h2 class="section-title">Les annonces</h2>
+  <div id="exploreProducts"></div>
+  <p class="empty" id="exploreEmpty">Aucun produit trouvé.</p>
+</section>
+
+<!-- PUBLICATION -->
+<section class="page" id="publish">
+  <div class="form-card">
+    <h2>Publier sur KOMERIA</h2>
+    <p style="font-size:14px;color:#737b85;margin-bottom:18px">
+      Présentez votre produit à la communauté.
+    </p>
+
+    <form id="publishForm">
+      <input type="text" id="productName"
+        placeholder="Nom du produit" required>
+
+      <textarea id="productDescription"
+        placeholder="Décrivez votre produit..." required></textarea>
+
+      <input type="file" id="productImage"
+        accept="image/*" required>
+
+      <input type="number" id="productPrice"
+        placeholder="Prix en FCFA" min="1" required>
+
+      <select id="productCategory" required>
+        <option value="">Choisir une catégorie</option>
+        <option value="mode">Mode</option>
+        <option value="maison">Maison</option>
+        <option value="automobile">Automobile</option>
+        <option value="alimentation">Alimentation</option>
+        <option value="informatique">Informatique</option>
+      </select>
+
+      <button class="primary-btn" type="submit">
+        Publier mon annonce
+      </button>
+    </form>
+    <p class="form-message" id="publishMessage"></p>
+  </div>
+</section>
+
+<!-- MESSAGES -->
+<section class="page" id="messages">
+  <h2 class="section-title">Messages</h2>
+  <div class="chat-card">
+    <div class="chat-head">
+      <strong id="chatTitle">Messagerie KOMERIA</strong>
+      <small id="chatInfo">Vos échanges avec les vendeurs</small>
     </div>
 
     <div class="chat-messages" id="chatMessages">
       <p class="chat-welcome">
-        Bienvenue dans la messagerie KOMERIA.
-        Sélectionnez un vendeur pour commencer.
+        Bienvenue dans la messagerie KOMERIA.<br>
+        Sélectionnez une annonce pour commencer une discussion.
       </p>
     </div>
 
-    <form id="chatForm" class="chat-form">
-      <input
-        type="text"
-        id="chatInput"
-        placeholder="Écrire un message..."
-        required
-      >
+    <form class="chat-form" id="chatForm">
+      <input type="text" id="chatInput"
+        placeholder="Écrire un message..." required>
       <button type="submit">Envoyer</button>
     </form>
   </div>
+  <p style="font-size:12px;color:#737b85;margin:12px 4px">
+    Version de démonstration : les messages ne sont pas encore transmis à d'autres utilisateurs.
+  </p>
 </section>
-    
-<h2>Nos catégories</h2>
 
-<div class="categories">
+<!-- PROFIL -->
+<section class="page" id="profile">
+  <div class="profile-card">
+    <div class="profile-avatar">👤</div>
+    <h2>Mon profil</h2>
+    <p>Bienvenue sur KOMERIA</p>
+    <p>Votre espace personnel</p>
+  </div>
 
-  <button type="button" class="category active" onclick="filterCategory('toutes')">
-    🌍 Toutes les catégories
+  <div class="profile-menu">
+    <div>👤 Informations personnelles</div>
+    <div>🏪 Ma boutique</div>
+    <div>📦 Mes annonces</div>
+    <div>♡ Mes favoris</div>
+    <div>⚙ Paramètres</div>
+  </div>
+</section>
+
+</main>
+
+<!-- NAVIGATION -->
+<nav class="bottom-nav">
+  <button class="nav-btn active" data-page="home" onclick="showPage('home',this)">
+    <span class="nav-icon">⌂</span>
+    Accueil
   </button>
-
-  <button type="button" class="category" onclick="filterCategory('mode')">
-    👕 Mode
+  <button class="nav-btn" data-page="explore" onclick="showPage('explore',this)">
+    <span class="nav-icon">⌕</span>
+    Explorer
   </button>
-
-  <button type="button" class="category" onclick="filterCategory('maison')">
-    🏠 Maison
+  <button class="nav-btn" data-page="publish" onclick="showPage('publish',this)">
+    <span class="nav-icon">＋</span>
+    Publier
   </button>
-
-  <button type="button" class="category" onclick="filterCategory('automobile')">
-    🚗 Automobile
+  <button class="nav-btn" data-page="messages" onclick="showPage('messages',this)">
+    <span class="nav-icon">✉</span>
+    Messages
   </button>
-
-  <button type="button" class="category" onclick="filterCategory('alimentation')">
-    🥑 Alimentation
+  <button class="nav-btn" data-page="profile" onclick="showPage('profile',this)">
+    <span class="nav-icon">●</span>
+    Profil
   </button>
+</nav>
 
-  <button type="button" class="category" onclick="filterCategory('informatique')">
-    💻 Informatique
-  </button>
-
-</div>
-    
-    
-    
-    <h2>Produits populaires</h2>
-
-    <p class="empty" id="empty">
-      Aucun produit trouvé.
-    </p>
-    
-
-<div class="products" id="products">
-
-  <article class="product" data-category="mode">
-    <div class="symbol">👟</div>
-    <h3>Chaussures</h3>
-    <p>Chaussures pour hommes et femmes</p>
-    <div class="price">Prix à confirmer</div>
-    <button type="button" onclick="openProductChat(this)">Contacter le vendeur</button>
-  </article>
-
-  <article class="product" data-category="mode">
-    <div class="symbol">👗</div>
-    <h3>Vêtements</h3>
-    <p>Mode et habillement</p>
-    <div class="price">Prix à confirmer</div>
-    <button type="button" onclick="openProductChat(this)">Contacter le vendeur</button>
-  </article>
-
-  <article class="product" data-category="maison">
-    <div class="symbol">🛋️</div>
-    <h3>Meubles</h3>
-    <p>Mobilier et décoration</p>
-    <div class="price">Prix à confirmer</div>
-    <button type="button" onclick="openProductChat(this)">Contacter le vendeur</button>
-  </article>
-
-  <article class="product" data-category="maison">
-    <div class="symbol">🧊</div>
-    <h3>Réfrigérateur</h3>
-    <p>Équipements électroménagers</p>
-    <div class="price">Prix à confirmer</div>
-    <button type="button" onclick="openProductChat(this)">Contacter le vendeur</button>
-  </article>
-
-  <article class="product" data-category="automobile">
-    <div class="symbol">🚗</div>
-    <h3>Voitures</h3>
-    <p>Véhicules neufs et d'occasion</p>
-    <div class="price">Prix à confirmer</div>
-    <button type="button" onclick="openProductChat(this)">Contacter le vendeur</button>
-  </article>
-
-  <article class="product" data-category="automobile">
-    <div class="symbol">🏍️</div>
-    <h3>Motos</h3>
-    <p>Motos et accessoires</p>
-    <div class="price">Prix à confirmer</div>
-    <button type="button" onclick="openProductChat(this)">Contacter le vendeur</button>
-  </article>
-
-  <article class="product" data-category="alimentation">
-    <div class="symbol">🍚</div>
-    <h3>Produits alimentaires</h3>
-    <p>Produits locaux et importés</p>
-    <div class="price">Prix à confirmer</div>
-    <button type="button" onclick="openProductChat(this)">Contacter le vendeur</button>
-  </article>
-
-  <article class="product" data-category="alimentation">
-    <div class="symbol">🥬</div>
-    <h3>Fruits et légumes</h3>
-    <p>Produits frais</p>
-    <div class="price">Prix à confirmer</div>
-    <button type="button" onclick="openProductChat(this)">Contacter le vendeur</button>
-  </article>
-
-  <article class="product" data-category="informatique">
-    <div class="symbol">📱</div>
-    <h3>Smartphones</h3>
-    <p>Téléphones et accessoires</p>
-    <div class="price">Prix à confirmer</div>
-    <button type="button" onclick="openProductChat(this)">Contacter le vendeur</button>
-  </article>
-
-  <article class="product" data-category="informatique">
-    <div class="symbol">💻</div>
-    <h3>Ordinateurs</h3>
-    <p>Informatique et accessoires</p>
-    <div class="price">Prix à confirmer</div>
-    <button type="button" onclick="openProductChat(this)">Contacter le vendeur</button>
-  </article>
-
-</div>
-  </main>
-
-  <footer>
-    <div class="logo">KOMER<span>IA</span></div>
-    <p>Une Afrique. Des marchés. Des opportunités.</p>
-    <p>© 2026 KOMERIA - Tous droits réservés.</p>
-  </footer>
-
-  <script>
-    
+<script>
 let currentCategory = "toutes";
 
-function applyFilters() {
-  const query = document.getElementById("search").value.toLowerCase().trim();
-  const products = document.querySelectorAll(".product");
-  let found = 0;
-
-  products.forEach(product => {
-    const matchesCategory =
-      currentCategory === "toutes" ||
-      product.dataset.category === currentCategory;
-
-    const matchesSearch =
-      product.textContent.toLowerCase().includes(query);
-
-    const visible = matchesCategory && matchesSearch;
-    product.style.display = visible ? "flex" : "none";
-
-    if (visible) found++;
+function showPage(page, button) {
+  document.querySelectorAll(".page").forEach(section => {
+    section.classList.remove("active");
   });
 
-  document.getElementById("empty").style.display =
-    found === 0 ? "block" : "none";
+  document.getElementById(page).classList.add("active");
+
+  document.querySelectorAll(".nav-btn").forEach(nav => {
+    nav.classList.remove("active");
+  });
+
+  const selected = button ||
+    document.querySelector('.nav-btn[data-page="' + page + '"]');
+
+  if (selected) selected.classList.add("active");
+
+  window.scrollTo({ top: 0, behavior: "smooth" });
 }
 
-function searchProducts() {
-  applyFilters();
+function toggleLike(button) {
+  button.classList.toggle("liked");
+  button.textContent = button.classList.contains("liked")
+    ? "♥ J'aime"
+    : "♡ J'aime";
 }
 
-function filterCategory(category) {
+function sharePost() {
+  if (navigator.share) {
+    navigator.share({
+      title: "KOMERIA",
+      text: "Découvrez KOMERIA, votre espace de commerce et d'opportunités."
+    }).catch(() => {});
+  } else {
+    alert("Le partage sera disponible sur votre appareil.");
+  }
+}
+
+function filterCategory(category, button) {
   currentCategory = category;
 
-  document.querySelectorAll(".category").forEach(button => {
-    button.classList.remove("active");
+  document.querySelectorAll(".category").forEach(item => {
+    item.classList.remove("active");
   });
 
-  const selectedButton = Array.from(
-    document.querySelectorAll(".category")
-  ).find(button =>
-    button.getAttribute("onclick") ===
-    `filterCategory('${category}')`
-  );
+  if (button) button.classList.add("active");
 
-  if (selectedButton) selectedButton.classList.add("active");
-
-  applyFilters();
+  renderProducts();
 }
 
-document.getElementById("search").addEventListener("input", applyFilters);
-
-// MESSAGERIE KOMERIA
-
-document.getElementById("chatForm").addEventListener(
-  "submit",
-  function(event) {
-    event.preventDefault();
-
-    const input = document.getElementById("chatInput");
-    const messages = document.getElementById("chatMessages");
-    const messageText = input.value.trim();
-
-    if (!messageText) return;
-
-    // Supprimer le message de bienvenue
-    const welcome = messages.querySelector(".chat-welcome");
-    if (welcome) {
-      welcome.remove();
-    }
-
-    // Créer le nouveau message
-    const message = document.createElement("p");
-    message.className = "message-bubble";
-    message.textContent = messageText;
-
-    messages.appendChild(message);
-
-    // Faire défiler vers le dernier message
-    messages.scrollTop = messages.scrollHeight;
-
-    // Vider le champ de saisie
-    input.value = "";
-  }
-);
- // OUVRIR LA MESSAGERIE DEPUIS UN PRODUIT POPULAIRE
-function openProductChat(button) {
-  const article = button.closest(".product");
-  const productName = article.querySelector("h3").textContent;
-
-  const messages = document.getElementById("chatMessages");
-  const chatTitle = document.querySelector(".chat-header h3");
-  const chatInfo = document.querySelector(".chat-header p");
-  const chatInput = document.getElementById("chatInput");
-
-  chatTitle.textContent = productName;
-  chatInfo.textContent = "Discussion au sujet de cette annonce";
-
-  messages.innerHTML = "";
-
-  const welcome = document.createElement("p");
-  welcome.className = "chat-welcome";
-  welcome.textContent =
-    "Vous souhaitez contacter le vendeur pour : " + productName;
-
-  messages.appendChild(welcome);
-
-  document.querySelector(".messaging").scrollIntoView({
-    behavior: "smooth"
-  });
-
-  chatInput.focus();
-    }   
-function addProductCard(item) {
-  const article = document.createElement("article");
-  article.className = "product";
-  article.dataset.category = item.category;
+function makeProductCard(item) {
+  const card = document.createElement("article");
+  card.className = "product-card";
 
   if (item.imageData) {
     const image = document.createElement("img");
     image.src = item.imageData;
     image.alt = item.name;
-    image.style.width = "100%";
-    image.style.height = "180px";
-    image.style.objectFit = "contain";
-    image.style.borderRadius = "8px";
-    article.appendChild(image);
-  } else {
-    const symbol = document.createElement("div");
-    symbol.className = "symbol";
-    symbol.textContent = "🛍️";
-    article.appendChild(symbol);
+    card.appendChild(image);
   }
+
+  const info = document.createElement("div");
+  info.className = "product-info";
 
   const title = document.createElement("h3");
   title.textContent = item.name;
@@ -771,136 +858,111 @@ function addProductCard(item) {
   description.textContent = item.description;
 
   const price = document.createElement("div");
-  price.className = "price";
+  price.className = "product-price";
   price.textContent =
     Number(item.price).toLocaleString("fr-FR") + " FCFA";
-const button = document.createElement("button");
-button.type = "button";
-button.textContent = "Contacter le vendeur";
 
-button.addEventListener("click", function() {
+  const contact = document.createElement("button");
+  contact.className = "primary-btn";
+  contact.textContent = "Contacter le vendeur";
+  contact.addEventListener("click", () => {
+    openProductChat(item.name);
+  });
+
+  info.append(title, description, price, contact);
+  card.appendChild(info);
+
+  return card;
+}
+
+function getSavedProducts() {
+  try {
+    const products = JSON.parse(
+      localStorage.getItem("komeriaProducts") || "[]"
+    );
+    return Array.isArray(products) ? products : [];
+  } catch (error) {
+    return [];
+  }
+}
+
+function renderProducts() {
+  const feed = document.getElementById("feedProducts");
+  const explore = document.getElementById("exploreProducts");
+  const query = document.getElementById("search").value
+    .toLowerCase().trim();
+
+  feed.innerHTML = "";
+  explore.innerHTML = "";
+
+  let found = 0;
+  const products = getSavedProducts();
+
+  products.forEach(item => {
+    const categoryMatch =
+      currentCategory === "toutes" ||
+      item.category === currentCategory;
+
+    const searchMatch =
+      (item.name + " " + item.description)
+      .toLowerCase().includes(query);
+
+    if (!categoryMatch || !searchMatch) return;
+
+    found++;
+
+    const feedCard = makeProductCard(item);
+    feed.insertBefore(feedCard, feed.firstChild);
+
+    explore.appendChild(makeProductCard(item));
+  });
+
+  document.getElementById("homeEmpty").style.display =
+    found === 0 ? "block" : "none";
+
+  document.getElementById("exploreEmpty").style.display =
+    found === 0 ? "block" : "none";
+}
+
+function openProductChat(name) {
+  document.getElementById("chatTitle").textContent = name;
+  document.getElementById("chatInfo").textContent =
+    "Discussion au sujet de cette annonce";
+
   const messages = document.getElementById("chatMessages");
-  const chatTitle = document.querySelector(".chat-header h3");
-  const chatInfo = document.querySelector(".chat-header p");
-  const chatInput = document.getElementById("chatInput");
-
-  chatTitle.textContent = item.name;
-  chatInfo.textContent = "Discussion au sujet de cette annonce";
-
   messages.innerHTML = "";
 
   const welcome = document.createElement("p");
   welcome.className = "chat-welcome";
-  welcome.textContent = "Vous souhaitez contacter le vendeur pour : " + item.name;
+  welcome.textContent =
+    "Vous souhaitez contacter le vendeur pour : " + name;
+
   messages.appendChild(welcome);
-
-  document.querySelector(".messaging").scrollIntoView({
-    behavior: "smooth"
-  });
-
-  chatInput.focus();
-});
-  article.append(title, description, price, button);
-  document.getElementById("products").appendChild(article);
-}
-  
-
-function loadSavedProducts() {
-  let savedProducts = [];
-
-  try {
-    savedProducts = JSON.parse(
-      localStorage.getItem("komeriaProducts") || "[]"
-    );
-
-    if (!Array.isArray(savedProducts)) savedProducts = [];
-  } catch (error) {
-    savedProducts = [];
-  }
-
-  savedProducts.forEach(addProductCard);
+  showPage("messages");
 }
 
+document.getElementById("search").addEventListener(
+  "input",
+  renderProducts
+);
 
-document.getElementById("publishForm").addEventListener(
+document.getElementById("chatForm").addEventListener(
   "submit",
   function(event) {
     event.preventDefault();
 
-    const imageFile = document.getElementById("productImage").files[0];
+    const input = document.getElementById("chatInput");
+    const messages = document.getElementById("chatMessages");
+    const text = input.value.trim();
 
-    if (!imageFile || !imageFile.type.startsWith("image/")) {
-      document.getElementById("publishMessage").textContent =
-        "Veuillez choisir une photo valide.";
-      return;
-    }
+    if (!text) return;
 
-    if (imageFile.size > 500 * 1024) {
-      document.getElementById("publishMessage").textContent =
-        "La photo doit faire moins de 500 Ko.";
-      return;
-    }
+    const welcome = messages.querySelector(".chat-welcome");
+    if (welcome) welcome.remove();
 
-    const item = {
-      name: document.getElementById("productName").value.trim(),
-      description: document.getElementById("productDescription").value.trim(),
-      price: Number(document.getElementById("productPrice").value),
-      category: document.getElementById("productCategory").value
-    };
+    const bubble = document.createElement("p");
+    bubble.className = "message-bubble";
+    bubble.textContent = text;
 
-    if (
-      !item.name ||
-      !item.description ||
-      !Number.isFinite(item.price) ||
-      item.price <= 0 ||
-      !item.category
-    ) {
-      document.getElementById("publishMessage").textContent =
-        "Veuillez remplir correctement tous les champs.";
-      return;
-    }
-
-    const reader = new FileReader();
-
-    reader.onload = function() {
-      item.imageData = reader.result;
-
-      let savedProducts = [];
-
-      try {
-        savedProducts = JSON.parse(
-          localStorage.getItem("komeriaProducts") || "[]"
-        );
-
-        if (!Array.isArray(savedProducts)) savedProducts = [];
-        savedProducts.push(item);
-
-        localStorage.setItem(
-          "komeriaProducts",
-          JSON.stringify(savedProducts)
-        );
-      } catch (error) {
-        document.getElementById("publishMessage").textContent =
-          "Stockage insuffisant. Essayez une photo plus petite.";
-        return;
-      }
-
-      addProductCard(item);
-
-      document.getElementById("publishMessage").textContent =
-        "Votre annonce avec photo a été publiée sur cet appareil.";
-
-      document.getElementById("publishForm").reset();
-            applyFilters();
-    };
-
-    reader.readAsDataURL(imageFile);
-  }
-);
-
-loadSavedProducts();
-
-</script>
-</body>
-</html>
-
+    messages.appendChild(bubble);
+    messages.scrollTop = mess
