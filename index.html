@@ -648,7 +648,7 @@ function applyFilters() {
       product.textContent.toLowerCase().includes(query);
 
     const visible = matchesCategory && matchesSearch;
-    product.style.display = visible ? "block" : "none";
+    product.style.display = visible ? "flex" : "none";
 
     if (visible) found++;
   });
