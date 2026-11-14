@@ -540,7 +540,40 @@ function filterCategory(category) {
 
 document.getElementById("search").addEventListener("input", applyFilters);
 
+// MESSAGERIE KOMERIA
 
+document.getElementById("chatForm").addEventListener(
+  "submit",
+  function(event) {
+    event.preventDefault();
+
+    const input = document.getElementById("chatInput");
+    const messages = document.getElementById("chatMessages");
+    const messageText = input.value.trim();
+
+    if (!messageText) return;
+
+    // Supprimer le message de bienvenue
+    const welcome = messages.querySelector(".chat-welcome");
+    if (welcome) {
+      welcome.remove();
+    }
+
+    // Créer le nouveau message
+    const message = document.createElement("p");
+    message.className = "message-bubble";
+    message.textContent = messageText;
+
+    messages.appendChild(message);
+
+    // Faire défiler vers le dernier message
+    messages.scrollTop = messages.scrollHeight;
+
+    // Vider le champ de saisie
+    input.value = "";
+  }
+);
+    
 function addProductCard(item) {
   const article = document.createElement("article");
   article.className = "product";
