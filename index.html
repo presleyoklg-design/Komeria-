@@ -891,19 +891,17 @@ document.getElementById("publishForm").addEventListener(
         "Votre annonce avec photo a été publiée sur cet appareil.";
 
       document.getElementById("publishForm").reset();
+      
       applyFilters();
     };
-
-    reader.onerror = function() {
-      document.getElementById("publishMessage").textContent =
-        "Impossible de lire cette photo.";
-    };
-
+    
     reader.readAsDataURL(imageFile);
   }
 );
+
 loadSavedProducts();
 
 </script>
 </body>
 </html>
+
