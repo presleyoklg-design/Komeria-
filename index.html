@@ -615,15 +615,32 @@ function addProductCard(item) {
   price.className = "price";
   price.textContent =
     Number(item.price).toLocaleString("fr-FR") + " FCFA";
+const button = document.createElement("button");
+button.type = "button";
+button.textContent = "Contacter le vendeur";
 
-  const button = document.createElement("button");
-  button.type = "button";
-  button.textContent = "Voir le produit";
+button.addEventListener("click", function() {
+  const messages = document.getElementById("chatMessages");
+  const chatTitle = document.querySelector(".chat-header h3");
+  const chatInfo = document.querySelector(".chat-header p");
+  const chatInput = document.getElementById("chatInput");
 
-  button.addEventListener("click", function() {
-    alert(item.name + "\n" + item.description + "\n" + price.textContent);
+  chatTitle.textContent = item.name;
+  chatInfo.textContent = "Discussion au sujet de cette annonce";
+
+  messages.innerHTML = "";
+
+  const welcome = document.createElement("p");
+  welcome.className = "chat-welcome";
+  welcome.textContent = "Vous souhaitez contacter le vendeur pour : " + item.name;
+  messages.appendChild(welcome);
+
+  document.querySelector(".messaging").scrollIntoView({
+    behavior: "smooth"
   });
 
+  chatInput.focus();
+});
   article.append(title, description, price, button);
   document.getElementById("products").appendChild(article);
 }
