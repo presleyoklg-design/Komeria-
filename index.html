@@ -593,7 +593,34 @@ document.getElementById("chatForm").addEventListener(
     input.value = "";
   }
 );
-    
+ // OUVRIR LA MESSAGERIE DEPUIS UN PRODUIT POPULAIRE
+function openProductChat(button) {
+  const article = button.closest(".product");
+  const productName = article.querySelector("h3").textContent;
+
+  const messages = document.getElementById("chatMessages");
+  const chatTitle = document.querySelector(".chat-header h3");
+  const chatInfo = document.querySelector(".chat-header p");
+  const chatInput = document.getElementById("chatInput");
+
+  chatTitle.textContent = productName;
+  chatInfo.textContent = "Discussion au sujet de cette annonce";
+
+  messages.innerHTML = "";
+
+  const welcome = document.createElement("p");
+  welcome.className = "chat-welcome";
+  welcome.textContent =
+    "Vous souhaitez contacter le vendeur pour : " + productName;
+
+  messages.appendChild(welcome);
+
+  document.querySelector(".messaging").scrollIntoView({
+    behavior: "smooth"
+  });
+
+  chatInput.focus();
+    }   
 function addProductCard(item) {
   const article = document.createElement("article");
   article.className = "product";
