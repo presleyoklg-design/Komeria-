@@ -271,6 +271,91 @@
       padding: 25px;
       line-height: 1.8;
     }
+    
+/* AMELIORATION DU DESIGN KOMERIA */
+
+/* Grille des produits et catégories */
+.categories,
+.products {
+  width: 100%;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+  align-items: stretch;
+}
+
+/* Cartes des produits */
+.product {
+  min-width: 0;
+  padding: 15px 10px;
+  border-radius: 12px;
+  box-shadow: 0 3px 12px rgba(0, 0, 0, 0.07);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+/* Images et symboles */
+.product img {
+  max-width: 100%;
+  object-fit: contain;
+}
+
+.product .symbol {
+  font-size: 42px;
+}
+
+/* Titres et descriptions */
+.product h3 {
+  font-size: 15px;
+  line-height: 1.4;
+  overflow-wrap: anywhere;
+}
+
+.product p {
+  font-size: 14px;
+  line-height: 1.5;
+  overflow-wrap: anywhere;
+}
+
+/* Prix */
+.product .price {
+  font-size: 15px;
+  line-height: 1.4;
+}
+
+/* Boutons */
+.product button {
+  width: 100%;
+  min-height: 44px;
+  padding: 10px 6px;
+  font-size: 13px;
+  line-height: 1.3;
+  white-space: normal;
+  overflow-wrap: anywhere;
+  border-radius: 8px;
+}
+
+/* Affichage sur ordinateur */
+@media (min-width: 700px) {
+  .categories,
+  .products {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 20px;
+  }
+
+  .product {
+    padding: 20px;
+  }
+
+  .product h3 {
+    font-size: 17px;
+  }
+
+  .product button {
+    font-size: 15px;
+  }
+  }
+    
   </style>
 </head>
 
