@@ -891,7 +891,18 @@ document.getElementById("publishForm").addEventListener(
         "Votre annonce avec photo a été publiée sur cet appareil.";
 
       document.getElementById("publishForm").reset();
-      
+            applyFilters();
+    };
+
+    reader.readAsDataURL(imageFile);
+  }
+);
+
+loadSavedProducts();
+
+</script>
+</body>
+</html>
       applyFilters();
     };
 
