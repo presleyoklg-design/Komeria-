@@ -544,6 +544,160 @@ main {
     padding-right: max(15px, calc((100% - 680px) / 2));
   }
 }
+  
+/* NOUVELLE FINITION DU FIL D'ACTUALITE KOMERIA */
+
+.card {
+  border-radius: 15px;
+  margin-bottom: 16px;
+  box-shadow: 0 2px 9px rgba(0,0,0,0.045);
+}
+
+.section-title {
+  font-size: 21px;
+  font-weight: 800;
+  margin: 20px 5px 14px;
+  letter-spacing: -0.4px;
+}
+
+.stories {
+  gap: 15px;
+  padding: 17px 14px;
+  scrollbar-width: none;
+}
+
+.stories::-webkit-scrollbar {
+  display: none;
+}
+
+.story-circle {
+  width: 66px;
+  height: 66px;
+  border: 3px solid var(--green);
+  box-shadow: 0 2px 6px #00000012;
+  transition: transform 0.2s;
+}
+
+.story:active .story-circle {
+  transform: scale(0.94);
+}
+
+.create-post {
+  padding: 15px;
+}
+
+.create-options {
+  margin-top: 15px;
+  padding-top: 14px;
+  font-weight: 600;
+}
+
+.create-options button {
+  padding: 5px;
+}
+
+.post {
+  padding: 16px;
+}
+
+.post-header {
+  gap: 12px;
+}
+
+.post-author strong {
+  font-size: 15px;
+}
+
+.post-author small {
+  font-size: 12px;
+}
+
+.post-text {
+  font-size: 15px;
+  line-height: 1.65;
+  margin: 16px 0;
+}
+
+.post-image,
+.video-placeholder {
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.video-placeholder {
+  min-height: 230px;
+  background: linear-gradient(145deg, #0b493b, #23846a);
+}
+
+.post-stats {
+  padding: 13px 2px;
+  font-size: 13px;
+}
+
+.post-actions {
+  gap: 4px;
+}
+
+.post-actions button {
+  flex: 1;
+  border-radius: 8px;
+  padding: 11px 3px;
+  transition: background 0.2s;
+}
+
+.post-actions button:active {
+  background: var(--bg);
+}
+
+.product-card {
+  border-radius: 14px;
+  margin-bottom: 16px;
+  box-shadow: 0 2px 9px rgba(0,0,0,0.05);
+}
+
+.product-card img {
+  height: 230px;
+  object-fit: cover;
+}
+
+.product-info {
+  padding: 16px;
+}
+
+.product-info h3 {
+  font-size: 17px;
+  margin-bottom: 8px;
+}
+
+.product-price {
+  font-size: 17px;
+}
+
+.primary-btn {
+  min-height: 45px;
+  border-radius: 9px;
+  transition: opacity 0.2s;
+}
+
+.primary-btn:active {
+  opacity: 0.8;
+}
+
+@media (max-width: 380px) {
+  .story-circle {
+    width: 58px;
+    height: 58px;
+  }
+
+  .post {
+    padding: 13px;
+  }
+
+  .post-actions button {
+    font-size: 11px;
+  }
+                        }
+  
 </style>
 </head>
 
