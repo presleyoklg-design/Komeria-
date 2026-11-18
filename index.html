@@ -995,11 +995,23 @@ function makeProductCard(item) {
   const card = document.createElement("article");
   card.className = "product-card";
 
+  if (!item.id) {
+    item.id = Date.now().toString() + Math.random().toString(36).slice(2);
+  }
+
   if (item.imageData) {
     const image = document.createElement("img");
     image.src = item.imageData;
     image.alt = item.name;
-    card.appendChild(image);
+
+    const download = document.createElement("a");
+    download.href = item.imageData;
+    download.download = "komeria-annonce.jpg";
+    download.textContent = "⬇ Télécharger la photo";
+    download.style.display = "block";
+    download.style.padding = "10px";
+
+    card.append(image, download);
   }
 
   const info = document.createElement("div");
@@ -1016,6 +1028,49 @@ function makeProductCard(item) {
   price.textContent =
     Number(item.price).toLocaleString("fr-FR") + " FCFA";
 
+  const actions = document.createElement("div");
+  actions.className = "post-actions";
+
+  const likes = item.likes || 0;
+  const likeButton = document.createElement("button");
+  likeButton.textContent = "♡ J'aime (" + likes + ")";
+  likeButton.addEventListener("click", () => {
+    const products = getSavedProducts();
+    const product = products.find(p => p.id === item.id);
+    if (!product) return;
+
+    product.likes = product.likes || 0;
+    product.likes++;
+    localStorage.setItem("komeriaProducts", JSON.stringify(products));
+    renderProducts();
+  });
+
+  const commentButton = document.createElement("button");
+  commentButton.textContent =
+    "💬 Commenter (" + ((item.comments || []).length) + ")";
+  commentButton.addEventListener("click", () => {
+    openProductComments(item.id);
+  });
+
+  const shareButton = document.createElement("button");
+  shareButton.textContent = "↗ Partager";
+  shareButton.addEventListener("click", async () => {
+    const shareData = {
+      title: item.name,
+      text: item.description
+    };
+
+    if (navigator.share) {
+      try {
+        await navigator.share(shareData);
+      } catch (error) {}
+    } else {
+      alert("Le partage n'est pas disponible sur cet appareil.");
+    }
+  });
+
+  actions.append(likeButton, commentButton, shareButton);
+
   const contact = document.createElement("button");
   contact.className = "primary-btn";
   contact.textContent = "Contacter le vendeur";
@@ -1023,10 +1078,12 @@ function makeProductCard(item) {
     openProductChat(item.name);
   });
 
-  info.append(title, description, price, contact);
+  info.append(title, description, price, actions, contact);
   card.appendChild(info);
 
   return card;
+  }
+                           
 }
 
 function getSavedProducts() {
