@@ -991,18 +991,15 @@ function filterCategory(category, button) {
   renderProducts();
 }
 
+
 function makeProductCard(item) {
   const card = document.createElement("article");
   card.className = "product-card";
 
-  if (!item.id) {
-    item.id = Date.now().toString() + Math.random().toString(36).slice(2);
-  }
-
   if (item.imageData) {
     const image = document.createElement("img");
     image.src = item.imageData;
-    image.alt = item.name;
+    image.alt = item.name || "Annonce KOMERIA";
 
     const download = document.createElement("a");
     download.href = item.imageData;
@@ -1018,55 +1015,27 @@ function makeProductCard(item) {
   info.className = "product-info";
 
   const title = document.createElement("h3");
-  title.textContent = item.name;
+  title.textContent = item.name || "";
 
   const description = document.createElement("p");
-  description.textContent = item.description;
+  description.textContent = item.description || "";
 
   const price = document.createElement("div");
   price.className = "product-price";
   price.textContent =
-    Number(item.price).toLocaleString("fr-FR") + " FCFA";
+    Number(item.price || 0).toLocaleString("fr-FR") + " FCFA";
 
   const actions = document.createElement("div");
   actions.className = "post-actions";
-function openProductComments(productId) {
-  const products = getSavedProducts();
-  const product = products.find(p => p.id === productId);
 
-  if (!product) {
-    alert("Cette annonce est introuvable.");
-    return;
-  }
-
-  product.comments = product.comments || [];
-
-  const comment = prompt("Écris ton commentaire :");
-
-  if (comment === null || comment.trim() === "") {
-    return;
-  }
-
-  product.comments.push({
-    text: comment.trim(),
-    date: new Date().toISOString()
-  });
-
-  localStorage.setItem("komeriaProducts", JSON.stringify(products));
-
-  alert("Commentaire ajouté !");
-  renderProducts();
-  }
-  const likes = item.likes || 0;
   const likeButton = document.createElement("button");
-  likeButton.textContent = "♡ J'aime (" + likes + ")";
+  likeButton.textContent = "♡ J'aime (" + (item.likes || 0) + ")";
   likeButton.addEventListener("click", () => {
     const products = getSavedProducts();
     const product = products.find(p => p.id === item.id);
     if (!product) return;
 
-    product.likes = product.likes || 0;
-    product.likes++;
+    product.likes = (product.likes || 0) + 1;
     localStorage.setItem("komeriaProducts", JSON.stringify(products));
     renderProducts();
   });
@@ -1082,14 +1051,23 @@ function openProductComments(productId) {
   shareButton.textContent = "↗ Partager";
   shareButton.addEventListener("click", async () => {
     const shareData = {
-      title: item.name,
-      text: item.description
+      title: item.name || "Annonce KOMERIA",
+      text: item.description || ""
     };
 
     if (navigator.share) {
       try {
         await navigator.share(shareData);
       } catch (error) {}
+    } else if (navigator.clipboard) {
+      try {
+        await navigator.clipboard.writeText(
+          shareData.title + "\n" + shareData.text
+        );
+        alert("Informations de l'annonce copiées.");
+      } catch (error) {
+        alert("Le partage n'est pas disponible sur cet appareil.");
+      }
     } else {
       alert("Le partage n'est pas disponible sur cet appareil.");
     }
@@ -1108,9 +1086,32 @@ function openProductComments(productId) {
   card.appendChild(info);
 
   return card;
-  }
-                           
 }
+
+function openProductComments(productId) {
+  const products = getSavedProducts();
+  const product = products.find(p => p.id === productId);
+
+  if (!product) {
+    alert("Cette annonce est introuvable.");
+    return;
+  }
+
+  product.comments = product.comments || [];
+
+  const comment = prompt("Écris ton commentaire :");
+  if (comment === null || comment.trim() === "") return;
+
+  product.comments.push({
+    text: comment.trim(),
+    date: new Date().toISOString()
+  });
+
+  localStorage.setItem("komeriaProducts", JSON.stringify(products));
+  alert("Commentaire ajouté !");
+  renderProducts();
+  }
+    
 
 function getSavedProducts() {
   try {
