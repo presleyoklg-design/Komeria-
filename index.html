@@ -1030,7 +1030,33 @@ function makeProductCard(item) {
 
   const actions = document.createElement("div");
   actions.className = "post-actions";
+function openProductComments(productId) {
+  const products = getSavedProducts();
+  const product = products.find(p => p.id === productId);
 
+  if (!product) {
+    alert("Cette annonce est introuvable.");
+    return;
+  }
+
+  product.comments = product.comments || [];
+
+  const comment = prompt("Écris ton commentaire :");
+
+  if (comment === null || comment.trim() === "") {
+    return;
+  }
+
+  product.comments.push({
+    text: comment.trim(),
+    date: new Date().toISOString()
+  });
+
+  localStorage.setItem("komeriaProducts", JSON.stringify(products));
+
+  alert("Commentaire ajouté !");
+  renderProducts();
+  }
   const likes = item.likes || 0;
   const likeButton = document.createElement("button");
   likeButton.textContent = "♡ J'aime (" + likes + ")";
