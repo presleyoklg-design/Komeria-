@@ -1107,16 +1107,89 @@ document.getElementById("chatForm").addEventListener(
 
     const input = document.getElementById("chatInput");
     const messages = document.getElementById("chatMessages");
-    const text = input.value.trim();
+    const messageText = input.value.trim();
 
-    if (!text) return;
+    if (!messageText) return;
 
     const welcome = messages.querySelector(".chat-welcome");
     if (welcome) welcome.remove();
 
     const bubble = document.createElement("p");
     bubble.className = "message-bubble";
-    bubble.textContent = text;
+    bubble.textContent = messageText;
 
     messages.appendChild(bubble);
-    messages.scrollTop = mess
+    messages.scrollTop = messages.scrollHeight;
+    input.value = "";
+  }
+);
+
+// PUBLICATION DES ANNONCES
+document.getElementById("publishForm").addEventListener(
+  "submit",
+  function(event) {
+    event.preventDefault();
+
+    const name = document.getElementById("productName").value.trim();
+    const description = document.getElementById("productDescription").value.trim();
+    const imageFile = document.getElementById("productImage").files[0];
+    const price = Number(document.getElementById("productPrice").value);
+    const category = document.getElementById("productCategory").value;
+    const message = document.getElementById("publishMessage");
+
+    if (!imageFile || !name || !description || price <= 0 || !category) {
+      message.textContent = "Veuillez remplir tous les champs.";
+      return;
+    }
+
+    if (!imageFile.type.startsWith("image/")) {
+      message.textContent = "Veuillez choisir une image valide.";
+      return;
+    }
+
+    if (imageFile.size > 1024 * 1024) {
+      message.textContent = "Image trop volumineuse. Maximum : 1 Mo.";
+      return;
+    }
+
+    const reader = new FileReader();
+
+    reader.onload = function() {
+      try {
+        const products = getSavedProducts();
+
+        products.push({
+          name: name,
+          description: description,
+          imageData: reader.result,
+          price: price,
+          category: category
+        });
+
+        localStorage.setItem("komeriaProducts", JSON.stringify(products));
+
+        document.getElementById("publishForm").reset();
+        message.textContent = "Votre annonce a été enregistrée !";
+
+        renderProducts();
+        showPage("home");
+      } catch (error) {
+        message.textContent =
+          "Espace de stockage insuffisant. Essayez une image plus petite.";
+      }
+    };
+
+    reader.onerror = function() {
+      message.textContent = "Impossible de lire cette image.";
+    };
+
+    reader.readAsDataURL(imageFile);
+  }
+);
+
+// Afficher les annonces déjà enregistrées
+renderProducts();
+
+</script>
+</body>
+</html>
