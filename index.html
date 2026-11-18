@@ -1118,11 +1118,31 @@ function getSavedProducts() {
     const products = JSON.parse(
       localStorage.getItem("komeriaProducts") || "[]"
     );
-    return Array.isArray(products) ? products : [];
+
+    if (!Array.isArray(products)) return [];
+
+    let changed = false;
+
+    products.forEach(product => {
+      if (!product.id) {
+        product.id =
+          Date.now().toString() +
+          Math.random().toString(36).slice(2);
+
+        changed = true;
+      }
+    });
+
+    if (changed) {
+      localStorage.setItem("komeriaProducts", JSON.stringify(products));
+    }
+
+    return products;
   } catch (error) {
     return [];
   }
 }
+  
 
 function renderProducts() {
   const feed = document.getElementById("feedProducts");
